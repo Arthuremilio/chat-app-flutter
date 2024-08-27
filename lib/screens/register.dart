@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  bool _obscurePassword = true;
+
+  void _togglePasswordView() {
+    setState(() {
+      _obscurePassword = !_obscurePassword;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,16 +68,26 @@ class RegisterScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: TextField(
+                    obscureText: _obscurePassword,
                     decoration: InputDecoration(
                       hintText: 'Senha',
                       labelText: 'Senha',
                       border: OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscurePassword
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: _togglePasswordView,
+                      ),
                     ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: TextField(
+                    obscureText: _obscurePassword,
                     decoration: InputDecoration(
                       hintText: 'Confirmar senha',
                       labelText: 'Confirmar senha',

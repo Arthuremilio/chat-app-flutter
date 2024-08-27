@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 import '../utils/app-routes.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
-  void _RegisterUser(BuildContext context) {
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool _obscurePassword = true;
+
+  void _togglePasswordView() {
+    setState(() {
+      _obscurePassword = !_obscurePassword;
+    });
+  }
+
+  void _registerUser(BuildContext context) {
     Navigator.of(context).pushNamed(AppRoutes.REGISTER);
   }
 
@@ -24,14 +37,12 @@ class LoginScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                  child: Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: Image.asset(
-                      height: 200,
-                      width: double.infinity,
-                      'assets/img/target-2070972_640.png',
-                      fit: BoxFit.contain,
-                    ),
+                  padding: const EdgeInsets.all(30.0),
+                  child: Image.asset(
+                    'assets/img/target-2070972_640.png',
+                    height: 200,
+                    width: double.infinity,
+                    fit: BoxFit.contain,
                   ),
                 ),
                 Padding(
@@ -47,31 +58,34 @@ class LoginScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: TextField(
+                    obscureText: _obscurePassword,
                     decoration: InputDecoration(
                       hintText: 'Senha',
                       labelText: 'Senha',
                       border: OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscurePassword
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: _togglePasswordView,
+                      ),
                     ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Container(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text('Login'),
-                    ),
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Text('Login'),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Container(
-                    width: double.infinity,
-                    child: TextButton(
-                      onPressed: () => _RegisterUser(context),
-                      child: Text('Novo usuário'),
-                    ),
+                  child: TextButton(
+                    onPressed: () => _registerUser(context),
+                    child: Text('Novo usuário'),
                   ),
                 ),
               ],

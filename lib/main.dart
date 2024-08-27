@@ -66,6 +66,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
+      initialRoute: AppRoutes.HOME,
       routes: {
         AppRoutes.HOME: (ctx) => LoginScreen(),
         AppRoutes.REGISTER: (ctx) => RegisterScreen(),
