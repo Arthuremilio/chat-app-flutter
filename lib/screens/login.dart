@@ -21,6 +21,10 @@ class _LoginScreenState extends State<LoginScreen> {
     Navigator.of(context).pushNamed(AppRoutes.REGISTER);
   }
 
+  void _logon(BuildContext context) {
+    Navigator.of(context).pushNamed(AppRoutes.CHAT);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => _logon(context),
                     child: Text('Login'),
                   ),
                 ),

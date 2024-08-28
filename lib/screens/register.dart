@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/app-routes.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -14,6 +15,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
     setState(() {
       _obscurePassword = !_obscurePassword;
     });
+  }
+
+  void _logon(BuildContext context) {
+    Navigator.of(context).pushNamed(AppRoutes.CHAT);
   }
 
   @override
@@ -100,7 +105,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Container(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => _logon(context),
                       child: Text('Cadastrar'),
                     ),
                   ),

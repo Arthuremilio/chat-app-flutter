@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto1/screens/chat.dart';
 import 'utils/app-routes.dart';
 import 'screens/login.dart';
 import 'screens/register.dart';
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.red,
@@ -66,10 +68,11 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: AppRoutes.HOME,
+      initialRoute: AppRoutes.LOGIN,
       routes: {
-        AppRoutes.HOME: (ctx) => LoginScreen(),
+        AppRoutes.LOGIN: (ctx) => LoginScreen(),
         AppRoutes.REGISTER: (ctx) => RegisterScreen(),
+        AppRoutes.CHAT: (ctx) => chatScreen(),
       },
     );
   }
