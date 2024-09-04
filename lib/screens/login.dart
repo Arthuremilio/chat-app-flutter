@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _logon(BuildContext context) {
-    Navigator.of(context).pushNamed(AppRoutes.CHAT);
+    Navigator.of(context).pushReplacementNamed(AppRoutes.CHAT);
   }
 
   @override

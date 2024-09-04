@@ -18,7 +18,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void _logon(BuildContext context) {
-    Navigator.of(context).pushNamed(AppRoutes.CHAT);
+    Navigator.of(context)
+      ..pop()
+      ..pushReplacementNamed(AppRoutes.CHAT);
   }
 
   @override
