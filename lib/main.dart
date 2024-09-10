@@ -3,8 +3,19 @@ import 'package:projeto1/screens/chat.dart';
 import 'utils/app-routes.dart';
 import 'screens/login.dart';
 import 'screens/register.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+const firebaseConfig = FirebaseOptions(
+    apiKey: "AIzaSyDwuc1TUb5GVh1RzxIOV1Z5nnf7kBbxxFA",
+    authDomain: "chat-2c564.firebaseapp.com",
+    projectId: "chat-2c564",
+    storageBucket: "chat-2c564.appspot.com",
+    messagingSenderId: "901267914018",
+    appId: "1:901267914018:web:3f93a426946aceb2d7397b");
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp(options: firebaseConfig);
   runApp(const MyApp());
 }
 

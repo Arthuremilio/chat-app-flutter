@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../utils/app-routes.dart';
 
@@ -10,6 +11,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _obscurePassword = true;
+  final txtEmail = TextEditingController();
+  final txtPassword = TextEditingController();
 
   void _togglePasswordView() {
     setState(() {
@@ -22,6 +25,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _logon(BuildContext context) {
+    FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: txtEmail.text,
+      password: txtPassword.text,
+    );
     Navigator.of(context).pushReplacementNamed(AppRoutes.CHAT);
   }
 
@@ -52,6 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: TextField(
+                    controller: txtEmail,
                     decoration: InputDecoration(
                       hintText: 'E-mail',
                       labelText: 'E-mail',
@@ -62,6 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: TextField(
+                    controller: txtPassword,
                     obscureText: _obscurePassword,
                     decoration: InputDecoration(
                       hintText: 'Senha',

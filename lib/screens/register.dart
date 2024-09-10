@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../utils/app-routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -10,6 +11,8 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   bool _obscurePassword = true;
+  var txtEmail = TextEditingController();
+  var txtPassword = TextEditingController();
 
   void _togglePasswordView() {
     setState(() {
@@ -18,6 +21,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void _logon(BuildContext context) {
+    FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: txtEmail.text,
+      password: txtPassword.text,
+    );
     Navigator.of(context)
       ..pop()
       ..pushReplacementNamed(AppRoutes.CHAT);
@@ -55,6 +62,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: TextField(
+                    controller: txtEmail,
                     decoration: InputDecoration(
                       hintText: 'E-mail',
                       labelText: 'E-mail',
@@ -75,6 +83,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: TextField(
+                    controller: txtPassword,
                     obscureText: _obscurePassword,
                     decoration: InputDecoration(
                       hintText: 'Senha',
