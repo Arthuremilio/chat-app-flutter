@@ -1,6 +1,6 @@
 {
-    "name": "projeto1",
-    "short_name": "projeto1",
+    "name": "chatapp",
+    "short_name": "chatapp",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
