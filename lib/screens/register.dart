@@ -13,6 +13,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _obscurePassword = true;
   var txtEmail = TextEditingController();
   var txtPassword = TextEditingController();
+  var txtName = TextEditingController();
 
   void _togglePasswordView() {
     setState(() {
@@ -20,14 +21,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
   }
 
-  void _logon(BuildContext context) {
-    FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: txtEmail.text,
-      password: txtPassword.text,
-    );
-    Navigator.of(context)
-      ..pop()
-      ..pushReplacementNamed(AppRoutes.CHAT);
+  void _register(BuildContext context) async {
+    try {
+      var credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: txtEmail.text,
+        password: txtPassword.text,
+      );
+      await credential.user!.updateDisplayName(txtName.text);
+      Navigator.of(context)
+        ..pop()
+        ..pushReplacementNamed(AppRoutes.CHAT);
+    } on FirebaseAuthException catch (ex) {
+      var snackBar = SnackBar(
+        content: Text(ex.message!),
+        backgroundColor: Colors.red,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
   @override
@@ -73,6 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: TextField(
+                    controller: txtName,
                     decoration: InputDecoration(
                       hintText: 'Nome',
                       labelText: 'Nome',
@@ -116,7 +128,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Container(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () => _logon(context),
+                      onPressed: () => _register(context),
                       child: Text('Cadastrar'),
                     ),
                   ),

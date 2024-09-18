@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../utils/app-routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -24,12 +25,28 @@ class _LoginScreenState extends State<LoginScreen> {
     Navigator.of(context).pushNamed(AppRoutes.REGISTER);
   }
 
-  void _logon(BuildContext context) {
-    FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: txtEmail.text,
-      password: txtPassword.text,
-    );
-    Navigator.of(context).pushReplacementNamed(AppRoutes.CHAT);
+  void _logon(BuildContext context) async {
+    if (txtEmail.text.isEmpty || txtPassword.text.isEmpty) {
+      var snackBar = SnackBar(
+        content: Text('Por favor, preencha os campos para fazer o login!'),
+        backgroundColor: Colors.red,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      return;
+    }
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: txtEmail.text,
+        password: txtPassword.text,
+      );
+      Navigator.of(context).pushReplacementNamed(AppRoutes.CHAT);
+    } on FirebaseAuthException catch (ex) {
+      var snackBar = SnackBar(
+        content: Text('Email ou senha incorreto!'),
+        backgroundColor: Colors.red,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
   @override
